@@ -1,4 +1,5 @@
 neighbors <- function(pattern, d){
+    library("seqinr")
     
     # INPUT format: 'Pattern' must contain only "A", "C", "G" and/or "T" 
     # concatenated in a single character (of variable length) without spaces
@@ -13,15 +14,12 @@ neighbors <- function(pattern, d){
         return("Error: Pattern must of the form 'ACGGTGTA' without spaces, containing only one or more of the following letters: 'A', 'C', 'G' and/or 'T'")                        
     }
     patternLength <- nchar(pattern)
-    if (d>patternLength){
-        return("Error: d must have length smaller or equal than pattern")        
-    } 
     
     # ----------- Generating the Neighborhood of a String ----------------------
     # Generate the d-neighborhood neighbors(pattern, d), 
     # i.e. the set of all k-mers whose Hamming distance from pattern does not 
     # exceed d. 
-    # ---> The following reccursive function is the R implementation of the 
+    # ---> The following reccursive function is an R implementation of the 
     # pseudocode provided by P.Pevzner and P.E.C Compeau in Coursera.org
     if (d == 0){
         return(pattern)
@@ -32,7 +30,10 @@ neighbors <- function(pattern, d){
     neighborhood <- NULL
     suffixNeighbors <- neighbors(suffix(pattern), d)
     for (i in 1:length(suffixNeighbors)){
-        if (hammingDistance(suffix(pattern), suffixNeighbors[i]) < d){
+	print(i)
+        print(suffix(pattern))
+	print(paste("ela", suffixNeighbors[i]))
+	if (hammingDistance(suffix(pattern), suffixNeighbors[i]) < d){
             for (j in 1:length(alphabet)){
                 neighborhood <- c(neighborhood, paste(alphabet[j], suffixNeighbors[i], sep=""))
             }
