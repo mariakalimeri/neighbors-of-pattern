@@ -30,9 +30,6 @@ neighbors <- function(pattern, d){
     neighborhood <- NULL
     suffixNeighbors <- neighbors(suffix(pattern), d)
     for (i in 1:length(suffixNeighbors)){
-	print(i)
-        print(suffix(pattern))
-	print(paste("ela", suffixNeighbors[i]))
 	if (hammingDistance(suffix(pattern), suffixNeighbors[i]) < d){
             for (j in 1:length(alphabet)){
                 neighborhood <- c(neighborhood, paste(alphabet[j], suffixNeighbors[i], sep=""))
